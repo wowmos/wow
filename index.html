@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox</title>
+<style>
+body { margin:0; font-family:-apple-system,sans-serif; background:linear-gradient(135deg,#1a2a40,#0d131f); display:flex; justify-content:center; align-items:center; min-height:100vh; color:#fff; overflow:hidden; }
+.box { width:100%; max-width:400px; height:100vh; padding:40px 20px; display:flex; flex-direction:column; background:rgba(0,0,0,0.4); box-sizing:border-box; position:relative; }
+.logo { font-size:48px; font-weight:900; text-align:center; margin:40px 0 50px; font-family:Impact,sans-serif; letter-spacing:2px; }
+input, button { width:100%; padding:16px; border-radius:8px; font-size:15px; margin-bottom:12px; box-sizing:border-box; outline:none; }
+input { background:#232527; border:1px solid #393b3d; color:#fff; }
+input::placeholder { color:#a0a0a0; }
+.btn1 { background:rgba(255,255,255,0.85); color:#000; border:none; font-weight:600; }
+.btn2 { background:rgba(255,255,255,0.1); color:#fff; border:1px solid #fff; }
+.link { text-align:center; font-size:13px; color:#fff; text-decoration:none; margin-top:10px; }
+.bar { position:absolute; bottom:0; left:0; width:100%; background:#2b2b2b; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; box-sizing:border-box; border-top:1px solid #444; }
+.bar span, .bar button { font-size:16px; color:#4da6ff; background:none; border:none; width:auto; padding:0; margin:0; }
+.bar .tab { color:#fff; }
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="logo">ROBLOX</div>
+  <form onsubmit="event.preventDefault();">
+    <input type="text" placeholder="Tên người dùng/Địa chỉ email/Số điện thoại">
+    <input type="password" placeholder="Mật khẩu">
+    <button class="btn1">Đăng nhập</button>
+    <button class="btn2">Gửi mã một lần cho tôi qua email</button>
+    <button class="btn2">Đăng Nhập Nhanh</button>
+  </form>
+  <a href="#" class="link">Bạn quên Mật khẩu hoặc Tên người dùng ?</a>
+  <div class="bar">
+    <span>+</span>
+    <span class="tab">42 tab v</span>
+    <button>Xong</button>
+  </div>
+</div>
+</body>
+</html>
